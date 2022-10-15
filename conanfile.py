@@ -1,8 +1,6 @@
 from conan import ConanFile
-from conan.tools.files import copy
-from conan.tools.scm import Git
+from conan.tools.files import copy, get, replace_in_file
 from conan.tools.layout import basic_layout
-from conan.tools.files import replace_in_file
 import os
 
 
@@ -35,10 +33,9 @@ class GlazeConan(ConanFile):
         self.info.clear()
 
     def source(self):
-        git = Git(self)
-        sources = self.conan_data["sources"][self.version]
-        git.clone(url=sources["url"], target=self.source_folder)
-
+        get(self, **self.conan_data["sources"][self.version],
+            destination=self.source_folder, strip_root=True)
+        
         # Update all includes to Nanorange to remove the "NanoRange/" prefix
         for root, subdirs, files in os.walk(os.path.join(self.source_folder, "include")):
             for filename in files:
