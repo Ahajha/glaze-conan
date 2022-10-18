@@ -31,12 +31,6 @@ class GlazeConan(ConanFile):
     def source(self):
         get(self, **self.conan_data["sources"][self.version],
             destination=self.source_folder, strip_root=True)
-        
-        # Update all includes to Nanorange to remove the "NanoRange/" prefix
-        for root, subdirs, files in os.walk(os.path.join(self.source_folder, "include")):
-            for filename in files:
-                replace_in_file(self, file_path=os.path.join(root, filename), search="NanoRange/", replace="", strict = False)
-
 
     def build(self):
         pass
