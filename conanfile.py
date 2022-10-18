@@ -24,10 +24,6 @@ class GlazeConan(ConanFile):
         self.requires("fast_float/3.4.0")
         self.requires("frozen/1.1.1")
         self.requires("nanorange/20200505")
-    
-    def configure(self):
-        # Glaze is intended to be fully header-only, fmt included
-        self.options["fmt"].header_only = True
 
     def package_id(self):
         self.info.clear()
